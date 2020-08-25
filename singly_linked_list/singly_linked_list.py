@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, value, next=None):
+    def __init__(self, value=None, next=None):
         self.value = value
         self.next = next
 
@@ -15,12 +15,12 @@ class LinkedList:
 
     def add_to_tail(self, value):
         if self.tail is None:
-            new_tail = Node(value, None)
+            new_tail = Node(value)
             self.head = new_tail
             self.tail = new_tail
 
         else:
-            new_tail = Node(value, None)
+            new_tail = Node(value)
             old_tail = self.tail
             old_tail.next = new_tail
             self.tail = new_tail
@@ -44,4 +44,20 @@ class LinkedList:
             return current_head.value
 
     def remove_tail(self):
-        pass
+        if not self.tail:
+            return None
+        current_node = self.head
+
+        if self.tail == self.head:
+            current_tail = self.tail
+            self.tail = None
+            self.head = None
+            self.length -= 1
+            return current_tail.value
+
+        else:
+            if current_node.next is self.tail:
+                current_tail = current_node.next.value
+                self.tail = current_node
+                current_node.next = None
+                return current_tail
